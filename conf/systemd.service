@@ -4,10 +4,10 @@ After=network.target
 
 [Service]
 Type=simple
-User=__APP__
-Group=__APP__
-WorkingDirectory=__INSTALL_DIR__/
-ExecStart=__INSTALL_DIR__/script
+User=root
+Group=root
+WorkingDirectory=__INSTALL_DIR__/livekit/
+ExecStart=__INSTALL_DIR__/livekit/livekit-server --config __INSTALL_DIR__/livekit/livekit.yaml
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 
