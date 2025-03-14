@@ -1,0 +1,21 @@
+keys:
+  meet: __SECRET_KEY__
+log_level: info
+port: __PORT_LIVEKIT__
+# FIXME:
+# redis:
+#   address: localhost:6379
+rtc:
+  port_range_end: 50002
+  port_range_start: 50000
+  tcp_port: __PORT_TCP__
+  turn_servers: null
+  use_external_ip: true
+turn:
+  domain: __TURN_DOMAIN__
+  enabled: true
+  cert_file: /etc/yunohost/certs/__TURN_DOMAIN__/crt.pem
+  key_file: /etc/yunohost/certs/__TURN_DOMAIN__/key.pem
+  tls_port: __PORT_TURN__
+  udp_port: __PORT_TURN__
+
