@@ -38,6 +38,14 @@ ynh_app_setting_set --key=redis_db --value=$redis_db
 ynh_app_setting_set --key=secret_key --value=$secret_key
 
 #=================================================
+# FIND AND OPEN A PORT
+#=================================================
+ynh_script_progression "Configuring firewall..."
+
+# Reserve UDP Port range
+ynh_hide_warnings yunohost firewall allow UDP -4 50000:50002
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Setting up source files..."
@@ -118,7 +126,7 @@ ynh_script_progression "Adding system configurations related to $app..."
 
 # Create a dedicated NGINX config using the conf/nginx.conf template
 # FIXME:
-# ynh_config_add_nginx
+ynh_config_add_nginx
 
 ### `ynh_config_add_systemd` is used to configure a systemd script for an app.
 ### It can be used for apps that use sysvinit (with adaptation) or systemd.
@@ -158,7 +166,7 @@ ynh_config_add_systemd
 ### to proceed if you later realize that you need to enable some flags that
 ### weren't enabled on old installs (be careful it'll override the existing
 ### service though so you should re-provide all relevant flags when doing so)
-yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log" --needs_exposed_ports "$port_turn" "$port_tcp" "$port_livekit"
 
 ### `ynh_config_add_logrotate` is used to configure a logrotate configuration for the logs of this app.
 ### Use this helper only if there is effectively a log file for this app.
