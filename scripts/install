@@ -43,7 +43,7 @@ ynh_app_setting_set --key=secret_key --value=$secret_key
 ynh_script_progression "Configuring firewall..."
 
 # Reserve UDP Port range
-ynh_hide_warnings yunohost firewall allow UDP -4 50000:50002
+ynh_hide_warnings yunohost firewall allow UDP 50000:60000
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
