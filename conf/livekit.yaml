@@ -2,12 +2,12 @@ keys:
   meet: __SECRET_KEY__
 log_level: info
 port: __PORT_LIVEKIT__
-# FIXME:
-# redis:
-#   address: localhost:6379
+redis:
+  address: localhost:6379
+  db: __REDIS_DB__
 rtc:
-  port_range_end: 50002
   port_range_start: 50000
+  port_range_end: 60000
   tcp_port: __PORT_TCP__
   turn_servers: null
   use_external_ip: true

@@ -24,8 +24,12 @@ source /usr/share/yunohost/helpers
 # REMOVE SYSTEM CONFIGURATIONS
 #=================================================
 ynh_script_progression "Removing system configurations related to $app..."
+redis_db=$(ynh_redis_get_free_db)
+ynh_hide_warnings yunohost firewall close -p udp 50000:60000
 
 ### This should be a symetric version of what happens in the install script
+
+ynh_redis_remove_db "$redis_db"
 
 ynh_config_remove_fail2ban
 
@@ -38,8 +42,6 @@ fi
 ynh_config_remove_systemd
 
 ynh_config_remove_nginx
-
-ynh_config_remove_phpfpm
 
 # Remove other various files specific to the app... such as:
 
