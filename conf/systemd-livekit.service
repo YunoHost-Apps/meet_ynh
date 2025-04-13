@@ -7,9 +7,8 @@ Type=simple
 User=root
 Group=root
 WorkingDirectory=__INSTALL_DIR__/
-EnvironmentFile=__INSTALL_DIR__/.env
-ExecStart=__INSTALL_DIR__/_build/venv/bin/gunicorn -c __INSTALL_DIR__/meet-conf.py meet.wsgi:application
-StandardOutput=append:/var/log/__APP__/__APP__.log
+ExecStart=__INSTALL_DIR__/livekit/livekit-server --config __INSTALL_DIR__/livekit/livekit.yaml
+StandardOutput=append:/var/log/__APP__/__APP__-livekit.log
 StandardError=inherit
 
 ### Depending on specificities of your service/app, you may need to tweak these

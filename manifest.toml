@@ -45,16 +45,6 @@ ram.runtime = "50M"
     # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "domain"
 
-    [install.path]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    type = "path"
-    default = "/example"
-
-    [install.turn_domain]
-    type = "domain"
-    ask.en = "Choose a domain for the turn server"
-    ask.fr = "Choisissez un domaine pour le serveur turn"
-
     [install.init_main_permission]
     # this is a generic question - ask strings are automatically handled by YunoHost's core
     # This won't be saved as setting and will instead be used to initialize the SSOwat permission
@@ -65,8 +55,8 @@ ram.runtime = "50M"
     ask.en = "Choose the application language"
     ask.fr = "Choisissez la langue de l'application"
     type = "select"
-    choices = ["fr", "en"]
-    default = "fr"
+    choices = ["fr-fr", "en-us"]
+    default = "fr-fr"
 
 [resources]
     # See the packaging documentation for the full set
@@ -95,15 +85,15 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.ports]
+    backend.default = 8071
+    # Ports for livekit
     # Documentation here: https://docs.livekit.io/home/self-hosting/ports-firewall/
-    turn.default = 5349
-    turn.exposed = "UDP"
     livekit.default = 7880 # Handled by nginx with SSL termination, on port 443
     tcp.default = 7881
     tcp.exposed = "TCP"
 
     [resources.apt]
-    packages = "redis, python3, postgresql"
+    packages = "redis, python3, python3-setuptools, python3-pip, postgresql, rdfind, celery"
 
     [resources.database]
     # This will automatically provision/deprovison a MySQL DB and store the corresponding credentials in settings $db_user, $db_name, $db_pwd
