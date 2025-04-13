@@ -58,6 +58,17 @@ ram.runtime = "50M"
     choices = ["fr-fr", "en-us"]
     default = "fr-fr"
 
+    [install.dex_domain]
+    ask.en = "Domain for authentication. It can't be the same domain as above. Dex app will be installed and used for the authentication mechanism."
+    ask.fr = "Domaine pour l'authentification. Il ne peut pas s'agir du même domaine que ci-dessus. L'application Dex sera installée et utilisée pour le mécanisme d'authentification."
+    type = "domain"
+
+    [install.dex_path]
+    ask.en = "Path for authentication URL. Please don't use 'auth' as it will break NGINX configuration."
+    ask.fr = "Chemin de l'URL d'authentification. Veuillez ne pas utiliser 'auth' car cela casserait la configuration NGINX."
+    type = "path"
+    default = "/"
+
 [resources]
     # See the packaging documentation for the full set
     # of explanation regarding the behavior and properties for each of those
@@ -93,7 +104,7 @@ ram.runtime = "50M"
     tcp.exposed = "TCP"
 
     [resources.apt]
-    packages = "redis, python3, python3-setuptools, python3-pip, postgresql, rdfind, celery"
+    packages = "redis, gawk, python3, python3-setuptools, python3-pip, postgresql, rdfind, celery"
 
     [resources.database]
     # This will automatically provision/deprovison a MySQL DB and store the corresponding credentials in settings $db_user, $db_name, $db_pwd
