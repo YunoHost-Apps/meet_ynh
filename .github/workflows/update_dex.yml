@@ -1,0 +1,30 @@
+name: Autoupdate OIDC Provider (Dex)
+
+# Every day at noon
+on:
+  schedule:
+    - cron: '0 12 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  update-dex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: update commit shasum referenced in _common.sh
+        run: |
+          # Extract the last commit in main from this repository: https://github.com/YunoHost-Apps/dex_ynh
+          expected_dex_commit=$(curl -s https://api.github.com/repos/Yunohost-Apps/dex_ynh/commits/master | jq -r '.sha')
+          sed -i 's/\(dex_ynh_commit\)=.*/\1='"$expected_dex_commit"'/' ./scripts/_common.sh
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: Update dex_ynh
+          title: Autoupdate dex_ynh
+          branch: update-dex-ynh
+          body: |
+            Autoupdate triggered by Github action to keep track of changes in dex_ynh.
+            Please check manually that OIDC still works after this change, and bump the version in manifest.
