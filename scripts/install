@@ -49,7 +49,7 @@ ynh_script_progression "Installing Dex..."
 
 oidc_secret=$(ynh_string_random -l 32)
 oidc_name="$app"
-oidc_callback="$domain/api/v1.0/callback"
+oidc_callback="https://$domain/api/v1.0/callback/"
 
 if yunohost app list | grep -q "$dex_domain$dex_path"; then
 	ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
@@ -107,6 +107,7 @@ ynh_setup_source --dest_dir="$install_dir/livekit" --source_id="livekit"
 ynh_setup_source --dest_dir="$install_dir"
 
 patch -p1 -d "$install_dir" < ../conf/settings.py.patch
+patch -p1 -d "$install_dir" < ../conf/authentication.patch
 
 ynh_exec_as_app mkdir -p "$install_dir/_build/venv"
 ynh_exec_as_app mkdir -p "$install_dir/_build/frontend"
