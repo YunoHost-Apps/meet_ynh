@@ -49,7 +49,7 @@ ynh_script_progression "Installing Dex..."
 
 oidc_secret=$(ynh_string_random -l 32)
 oidc_name="$app"
-oidc_callback="https://$domain/api/v1.0/callback/"
+oidc_callback="$domain/api/v1.0/callback/"
 
 if yunohost app list | grep -q "$dex_domain$dex_path"; then
 	ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
@@ -118,12 +118,20 @@ pushd "$install_dir/_build/venv"
   ynh_exec_as_app ./bin/pip install ../../src/backend
 popd
 
-# FIXME: this fails
 pushd "$install_dir/src/backend"
+  # Collect the static resources
   ynh_exec_as_app MEET_DATA_DIR="$install_dir/_build/data/static" DJANGO_CONFIGURATION=Build DJANGO_JWT_PRIVATE_SIGNING_KEY=Dummy \
     STATIC_ROOT="$install_dir/src/backend" \
     "$install_dir/_build/venv/bin/python" manage.py collectstatic --noinput
   rdfind -makesymlinks true -followsymlinks true -makeresultsfile false "$install_dir/_build/data/static"
+  # Setup the database
+  # FIXME: cleanup the env variables.
+  ynh_exec_as_app \
+    MEET_DATA_DIR="$install_dir/_build/data/static" DJANGO_CONFIGURATION=Build DJANGO_JWT_PRIVATE_SIGNING_KEY=Dummy \
+    STATIC_ROOT="$install_dir/src/backend" \
+    DB_NAME=$db_name DB_USER=$db_name DB_PASSWORD=$db_pwd \
+    "$install_dir/_build/venv/bin/python" manage.py migrate
+
 popd
 
 pushd "$install_dir/src/frontend"
