@@ -76,8 +76,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/numerique-gouv/meet/archive/refs/tags/meet-0.0.1.tar.gz"
-    sha256 = "00cade770e57f72beb5334c17a99f375269d190c2be6d0acf4ecbf4531f1d41f"
+    url = "https://github.com/suitenumerique/meet/archive/refs/tags/v0.1.18.tar.gz"
+    sha256 = "5fe1b0773556f221623ad5933f5ce42fc117715fe0b7ad630db1f9e72badc601"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.livekit]
