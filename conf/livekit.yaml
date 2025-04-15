@@ -1,3 +1,4 @@
+# Documentation: https://docs.livekit.io/home/self-hosting/deployment/#configuration
 keys:
   meet: __LIVEKIT_SECRET_KEY__
 log_level: info
