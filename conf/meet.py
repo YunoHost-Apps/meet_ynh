@@ -1,7 +1,7 @@
 # See https://github.com/suitenumerique/meet/blob/main/docker/files/usr/local/etc/gunicorn/meet.py for the list of variables
 
 # Gunicorn-django settings
-bind = ["0.0.0.0:__PORT_BACKEND__"]
+bind = ["127.0.0.1:__PORT_BACKEND__"]
 name = "meet"
 python_path = "__INSTALL_DIR__/src/backend"
 
