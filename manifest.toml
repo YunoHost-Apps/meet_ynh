@@ -104,7 +104,7 @@ ram.runtime = "50M"
     tcp.exposed = "TCP"
 
     [resources.apt]
-    packages = "redis, gawk, python3, python3-setuptools, python3-pip, postgresql, rdfind, celery"
+    packages = "redis, python3, python3-setuptools, python3-pip, postgresql, rdfind, celery"
 
     [resources.database]
     # This will automatically provision/deprovison a MySQL DB and store the corresponding credentials in settings $db_user, $db_name, $db_pwd
