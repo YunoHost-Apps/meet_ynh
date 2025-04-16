@@ -25,15 +25,9 @@ helpers_version = "2.1"
 architectures = ["amd64", "arm64", "armv7"]
 multi_instance = true
 
-# FIXME: replace with true, false, or "not_relevant".
-# Not to confuse with the "sso" key: the "ldap" key corresponds to wether or not a user *can* login on the app using
-# its YunoHost credentials.
-ldap = "?"
+ldap = "false"
 
-# FIXME: replace with true, false, or "not_relevant".
-# Not to confuse with the "ldap" key: the "sso" key corresponds to wether or not a user is *automatically logged-in*
-# on the app when logged-in on the YunoHost portal.
-sso = "?"
+sso = "true"
 
 # FIXME: replace with an **estimate** minimum disk and RAM requirements. e.g. 20M, 400M, 1G...
 disk = "50M"
@@ -42,12 +36,9 @@ ram.runtime = "50M"
 
 [install]
     [install.domain]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "domain"
 
     [install.init_main_permission]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    # This won't be saved as setting and will instead be used to initialize the SSOwat permission
     type = "group"
     default = "visitors"
 
@@ -70,9 +61,6 @@ ram.runtime = "50M"
     default = "/"
 
 [resources]
-    # See the packaging documentation for the full set
-    # of explanation regarding the behavior and properties for each of those
-
     [resources.sources]
 
     [resources.sources.main]
@@ -107,5 +95,4 @@ ram.runtime = "50M"
     packages = "redis, python3, python3-setuptools, python3-pip, postgresql, rdfind, celery"
 
     [resources.database]
-    # This will automatically provision/deprovison a MySQL DB and store the corresponding credentials in settings $db_user, $db_name, $db_pwd
     type = "postgresql"
