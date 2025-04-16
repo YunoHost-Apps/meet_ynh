@@ -83,10 +83,6 @@ ynh_setup_source --dest_dir="$install_dir/livekit" --source_id="livekit"
 # Download, check integrity, uncompress and patch the source from manifest.toml
 ynh_setup_source --dest_dir="$install_dir"
 
-patch -p1 -d "$install_dir" < ../conf/settings.py.patch
-patch -p1 -d "$install_dir" < ../conf/authentication.patch
-patch -p1 -d "$install_dir" < ../conf/silentLogin.ts.patch
-
 ynh_exec_as_app mkdir -p "$install_dir/_build/venv"
 ynh_exec_as_app mkdir -p "$install_dir/_build/frontend"
 ynh_exec_as_app mkdir -p "$install_dir/_build/data/static"
