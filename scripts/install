@@ -77,10 +77,6 @@ ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir" --source_id="main"
 ynh_setup_source --dest_dir="$install_dir/livekit" --source_id="livekit"
-### downloaded from an upstream source, like a git repository.
-### `ynh_setup_source` use the file manifest.toml
-
-# Download, check integrity, uncompress and patch the source from manifest.toml
 ynh_setup_source --dest_dir="$install_dir"
 
 ynh_exec_as_app mkdir -p "$install_dir/_build/venv"
@@ -138,17 +134,6 @@ chown "$app:$app" "$install_dir/meet-conf.py"
 ynh_script_progression "Adding system configurations related to $app..."
 
 ynh_config_add_nginx
-
-### `ynh_config_add_systemd` is used to configure a systemd script for an app.
-### It can be used for apps that use sysvinit (with adaptation) or systemd.
-### Have a look at the app to be sure this app needs a systemd script.
-### `ynh_config_add_systemd` will use the file conf/systemd.service
-### If you're not using these lines:
-###   - You can remove those files in conf/.
-###   - Remove the section "BACKUP SYSTEMD" in the backup script
-###   - Remove also the section "STOP AND REMOVE SERVICE" in the remove script
-###   - As well as the section "RESTORE SYSTEMD" in the restore script
-###   - And the section "SETUP SYSTEMD" in the upgrade script
 
 # Create a dedicated systemd config
 ynh_config_add_systemd
