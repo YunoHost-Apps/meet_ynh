@@ -28,38 +28,7 @@ ynh_app_setting_set --key=django_secret_key --value=$django_secret_key
 #=================================================
 ynh_script_progression "Installing Dex..."
 
-oidc_secret=$(ynh_string_random -l 32)
-oidc_name="$app"
-oidc_callback="$domain/api/v1.0/callback/"
-
-if yunohost app list | grep -q "$dex_domain$dex_path"; then
-	ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
-fi
-
-yunohost app install https://github.com/YunoHost-Apps/dex_ynh/tree/$dex_ynh_commit --force --args "domain=$dex_domain&path=$dex_path&oidc_name=$oidc_name&oidc_secret=$oidc_secret&oidc_callback=$oidc_callback" 2>&1 | tee dexlog.txt
-dex_app=$(grep -Po 'Installation of\s+\K.*(?=\s+completed)' dexlog.txt)
-rm dexlog.txt
-
-if [ -z "$dex_app" ]; then
-  ynh_die "Dex package installation failed"
-fi
-
-# Create Dex URIs
-if [ "$dex_path" = "/" ]
-then
-	dex_auth_uri="https://$dex_domain/auth"
-	dex_token_uri="https://$dex_domain/token"
-	dex_user_uri="https://$dex_domain/userinfo"
-else
-	dex_auth_uri="https://$dex_domain$dex_path/auth"
-	dex_token_uri="https://$dex_domain$dex_path/token"
-	dex_user_uri="https://$dex_domain$dex_path/userinfo"	
-fi
-
-ynh_app_setting_set --key=dex_app --value=$dex_app
-ynh_app_setting_set --key=dex_auth_uri --value=$dex_auth_uri
-ynh_app_setting_set --key=dex_token_uri --value=$dex_token_uri
-ynh_app_setting_set --key=dex_user_uri --value=$dex_user_uri
+install_dex
 
 #=================================================
 # INSTALL NODEJS
@@ -75,9 +44,8 @@ ynh_nodejs_install
 ynh_script_progression "Setting up source files..."
 
 
-ynh_setup_source --dest_dir="$install_dir" --source_id="main"
-ynh_setup_source --dest_dir="$install_dir/livekit" --source_id="livekit"
 ynh_setup_source --dest_dir="$install_dir"
+ynh_setup_source --dest_dir="$install_dir/livekit" --source_id="livekit"
 
 ynh_exec_as_app mkdir -p "$install_dir/_build/venv"
 ynh_exec_as_app mkdir -p "$install_dir/_build/frontend"
@@ -139,7 +107,8 @@ ynh_config_add_nginx
 ynh_config_add_systemd
 ynh_config_add_systemd --service="${app}-livekit" --template="systemd-livekit.service"
 
-yunohost service add "$app" --description="Simple, high-performance videoconferencing solution" --log="/var/log/$app/$app.log" --needs_exposed_ports "$port_tcp" "$port_livekit"
+yunohost service add "$app" --description="Simple, high-performance videoconferencing solution" --log="/var/log/$app/$app.log"
+yunohost service add "$app-livekit" --description="Livekit for $app" --log="/var/log/$app/$app-livekit.log" --needs_exposed_ports "$port_tcp" "$port_livekit"
 
 # Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
