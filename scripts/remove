@@ -16,8 +16,6 @@ redis_db=$(ynh_app_setting_get --key=redis_db)
 celery_redis_db=$(ynh_app_setting_get --key=celery_redis_db)
 dex_app=$(ynh_app_setting_get --key=dex_app)
 
-### This should be a symetric version of what happens in the install script
-
 ynh_redis_remove_db "$redis_db"
 ynh_redis_remove_db "$celery_redis_db"
 
