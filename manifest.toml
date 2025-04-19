@@ -12,7 +12,7 @@ version = "0.1.18~ynh1"
 maintainers = ["fflorent", "rouja"]
 
 [upstream]
-license = "AGPL-3.0-or-later"
+license = "MIT"
 website = "https://visio.numerique.gouv.fr/"
 demo = "https://visio.numerique.gouv.fr/"
 code = "https://github.com/suitenumerique/meet"
