@@ -69,10 +69,12 @@ ram.runtime = "50M"
     [resources.sources.livekit]
     amd64.url = "https://github.com/livekit/livekit/releases/download/v1.8.0/livekit_1.8.0_linux_amd64.tar.gz"
     amd64.sha256 = "7ccd6c865a8c81909a1be63639ae0e6e80dff5e0d12cd1fffff3dadb53167cca"
+    arm64.url = "https://github.com/livekit/livekit/releases/download/v1.8.0/livekit_1.8.0_linux_arm64.tar.gz"
+    arm64.sha256 = "b9246a7e876a37f659f17c151acc82f665d5e173c1fa4ac937f222d944b2db0b"
+    armv7.url = "https://github.com/livekit/livekit/releases/download/v1.8.0/livekit_1.8.0_linux_armv7.tar.gz"
+    armv7.sha256 = "76e677080fe176b7a07d1280b08e72b942d65c303d36aa89979da6293631b039"
     in_subdir=false
     autoupdate.strategy = "latest_github_release"
-    # arm64.sha256 = "17951c82888ba40fb2c12d30deeb24ecf8ab21c9098ed4c6ad11f76e8d16f2eb"
-    # armv7.sha256 = "73b6b1610bc5ce415811fb8986b6018ca0d234bc4714354c551c9ad56594eb02"
 
     [resources.system_user]
 
