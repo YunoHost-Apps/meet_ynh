@@ -1,5 +1,5 @@
 [Unit]
-Description=Visio: Modern relational spreadsheet
+Description=Visio: Simple, high-performance videoconferencing solution
 After=network.target
 
 [Service]
