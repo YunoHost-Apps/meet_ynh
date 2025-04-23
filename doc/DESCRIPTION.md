@@ -1,4 +1,4 @@
-Powered by [LiveKit](https://livekit.io/), Visio offers Zoom-level performance with high-quality video and audio. No installation required—simply join calls directly from your browser. Check out LiveKit's impressive optimizations in their [blog post](https://blog.livekit.io/livekit-one-dot-zero/).
+Powered by [LiveKit](https://livekit.io/), Meet offers Zoom-level performance with high-quality video and audio. No installation required—simply join calls directly from your browser. Check out LiveKit's impressive optimizations in their [blog post](https://blog.livekit.io/livekit-one-dot-zero/).
 
 ### Features
 - Optimized for stability in large meetings (+100 p.)
