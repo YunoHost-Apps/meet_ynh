@@ -1,4 +1,4 @@
-Grâce à [LiveKit](https://livekit.io/), Visio offre des performances similaire à Zoom avec une vidéo et un son de haute qualité. Aucune installation n'est nécessaire : il suffit de participer aux appels directement depuis votre navigateur. Découvrez les optimisations impressionnantes de LiveKit dans leur [billet de blog](https://blog.livekit.io/livekit-one-dot-zero/).
+Grâce à [LiveKit](https://livekit.io/), Meet offre des performances similaire à Zoom avec une vidéo et un son de haute qualité. Aucune installation n'est nécessaire : il suffit de participer aux appels directement depuis votre navigateur. Découvrez les optimisations impressionnantes de LiveKit dans leur [billet de blog](https://blog.livekit.io/livekit-one-dot-zero/).
 
 ### Fonctionnalités
 

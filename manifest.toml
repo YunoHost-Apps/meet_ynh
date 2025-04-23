@@ -2,8 +2,8 @@
 
 packaging_format = 2
 
-id = "visio"
-name = "Visio"
+id = "meet"
+name = "Meet"
 description.en = "Simple, high-performance videoconferencing solution powered by Livekit"
 description.fr = "Solution simple et performante de visioconférence propulsé par Livekit"
 
