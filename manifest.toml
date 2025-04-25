@@ -4,8 +4,8 @@ packaging_format = 2
 
 id = "meet"
 name = "Meet"
-description.en = "Simple, high-performance videoconferencing solution powered by Livekit"
-description.fr = "Solution simple et performante de visioconférence propulsé par Livekit"
+description.en = "Simple and Secure Video Conferencing. Powered by LiveKit."
+description.fr = "Solution simple et sécurisée de visioconférence. Propulsée par Livekit."
 
 version = "0.1.19~ynh1"
 
