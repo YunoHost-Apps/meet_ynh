@@ -48,7 +48,7 @@ ynh_exec_as_app mkdir -p "$install_dir/_build/data/static"
 
 pushd "$install_dir/_build/venv"
   ynh_exec_as_app python -m venv .
-  ynh_exec_as_app ./bin/pip install ../../src/backend
+  ynh_hide_warnings ynh_exec_as_app ./bin/pip install "$install_dir/src/backend"
 popd
 
 pushd "$install_dir/src/backend"
@@ -58,10 +58,8 @@ pushd "$install_dir/src/backend"
     "$install_dir/_build/venv/bin/python" manage.py collectstatic --noinput
   rdfind -makesymlinks true -followsymlinks true -makeresultsfile false "$install_dir/_build/data/static"
   # Setup the database
-  # FIXME: cleanup the env variables.
-  ynh_exec_as_app \
-    DJANGO_DATA_DIR="$install_dir/_build/data/static" DJANGO_CONFIGURATION=Build DJANGO_JWT_PRIVATE_SIGNING_KEY=Dummy \
-    STATIC_ROOT="$install_dir/src/backend" \
+  ynh_hide_warnings ynh_exec_as_app \
+    DJANGO_CONFIGURATION=Production \
     DB_NAME=$db_name DB_USER=$db_name DB_PASSWORD=$db_pwd \
     "$install_dir/_build/venv/bin/python" manage.py migrate
 

@@ -29,7 +29,7 @@ chown -R "$app:www-data" "$install_dir"
 #=================================================
 # RESTORE THE POSTGRESQL DATABASE
 #=================================================
-ynh_script_progression "Restoring the MySQL database..."
+ynh_script_progression "Restoring the Postgresql database..."
 
 ynh_psql_db_shell < ./db.sql
 
