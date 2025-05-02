@@ -25,6 +25,7 @@ jobs:
           commit-message: Update dex_ynh
           title: Autoupdate dex_ynh
           branch: update-dex-ynh
+          base: testing
           body: |
             Autoupdate triggered by Github action to keep track of changes in dex_ynh.
             Please check manually that OIDC still works after this change, and bump the version in manifest.
