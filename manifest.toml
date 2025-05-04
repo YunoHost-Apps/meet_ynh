@@ -7,7 +7,7 @@ name = "Meet"
 description.en = "Simple and Secure Video Conferencing. Powered by LiveKit."
 description.fr = "Solution simple et sécurisée de visioconférence. Propulsée par Livekit."
 
-version = "0.1.21~ynh1"
+version = "0.1.21~ynh2"
 
 maintainers = ["fflorent", "rouja"]
 
