@@ -12,11 +12,34 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
+# INSTALL NODEJS
+#=================================================
+
+ynh_script_progression "Installing frontend dependencies..."
+
+# Required to build the frontend below
+ynh_nodejs_install
+
+#=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Stopping $app's systemd service..."
 
 ynh_systemctl --service="$app" --action="stop"
+
+#=================================================
+# CHANGING DEX REDIRECT_URL
+#=================================================
+ynh_script_progression "Changing Dex redirect url"
+
+if [ -z "$dex_app" ]; then
+  ynh_die "Dex app is missing, something is broken with the app authentication. You may reinstall Meet."
+fi
+
+dex_install_dir=$(yunohost app setting "$dex_app" install_dir)
+sed -i "/^\s*redirectURIs:\s*$/{n;s,https://.*,https://$domain/api/v1.0/callback/,;}" "$dex_install_dir/config.yaml"
+
+yunohost service restart "$dex_app"
 
 #=================================================
 # MODIFY URL IN NGINX CONF
@@ -29,8 +52,18 @@ ynh_config_change_url_nginx
 #=================================================
 # SPECIFIC MODIFICATIONS
 #=================================================
+ynh_script_progression "Updating env configuration file..."
 
-## do any changes to files that reference specific installation domain/path, i.e. regenerate configs etc
+ynh_config_add --template="env" --destination="$install_dir/.env"
+
+ynh_script_progression "Rebuilding the frontend..."
+
+pushd "$install_dir/src/frontend"
+  ynh_hide_warnings ynh_exec_as_app npm ci
+  ynh_hide_warnings ynh_exec_as_app NODE_ENV=production VITE_API_BASE_URL="https://${new_domain}" npm run build -- --outDir="$install_dir/_build/frontend" --emptyOutDir
+popd
+
+chown -R "$app:www-data" "$install_dir"
 
 #=================================================
 # START SYSTEMD SERVICE
