@@ -7,8 +7,8 @@ redis:
   address: localhost:6379
   db: __REDIS_DB__
 rtc:
-  port_range_start: 50000
-  port_range_end: 60000
+  port_range_start: 49152
+  port_range_end: 65535
   tcp_port: __PORT_TCP__
   turn_servers: null
   use_external_ip: true

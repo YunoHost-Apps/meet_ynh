@@ -15,6 +15,14 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service="$app" --action="stop"
 
 #=================================================
+# CONFIGURE FIREWALL
+#=================================================
+if ! yunohost firewall list | grep -q "\- 49152:65535"; then
+  ynh_script_progression "Configuring firewall..."
+  ynh_hide_warnings yunohost firewall allow UDP -4 49152:65535
+fi
+
+#=================================================
 # INSTALL DEX APP FOR OAUTH2 / OIDC
 #=================================================
 if ! yunohost app list | grep -q "id: $dex_app"; then
