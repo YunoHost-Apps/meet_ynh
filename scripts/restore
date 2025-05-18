@@ -8,6 +8,17 @@
 source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
+#=================================================
+# CONFIGURE FIREWALL
+#=================================================
+if ! yunohost firewall list | grep -q "\- 49152:65535"; then
+  ynh_script_progression "Restoring firewall port range for RTC..."
+  ynh_hide_warnings yunohost firewall allow UDP -4 49152:65535
+fi
+
+#=================================================
+# RESTORE DEX
+#=================================================
 if ! yunohost app list | grep -q "id: $dex_app"; then
   ynh_script_progression "Installing Dex..."
   yunohost tools update
