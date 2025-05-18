@@ -12,6 +12,8 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Removing system configurations related to $app..."
 
+remove_certs_rights_for_turn
+
 redis_db=$(ynh_app_setting_get --key=redis_db)
 celery_redis_db=$(ynh_app_setting_get --key=celery_redis_db)
 dex_app=$(ynh_app_setting_get --key=dex_app)

@@ -17,11 +17,22 @@ redis_db=$(ynh_redis_get_free_db)
 celery_redis_db=$(ynh_redis_get_free_db)
 livekit_secret_key=$(ynh_string_random -l 32)
 django_secret_key=$(ynh_string_random -l 32)
+turn_enabled=$([ -n "$turn_domain"] && echo "1" || echo "0")
 ynh_app_setting_set --key=redis_db --value=$redis_db
 ynh_app_setting_set --key=celery_redis_db --value=$celery_redis_db
 ynh_app_setting_set --key=livekit_secret_key --value=$livekit_secret_key
 ynh_app_setting_set --key=django_secret_key --value=$django_secret_key
+ynh_app_setting_set --key=turn_enabled --value=$turn_enabled
 
+
+#=================================================
+# PRECONDITIONS
+#=================================================
+ynh_script_progression "Check preconditions..."
+
+if [ "$turn_enabled" == "1" ] && [ "$(yunohost domain info $turn_domain --json | jq ".apps | length")" -gt 0 ]; then
+  ynh_die "An app has been installed on $turn_domain. Please remove it or change its url and try again"
+fi
 
 #=================================================
 # FIND AND OPEN A PORT
@@ -118,6 +129,10 @@ yunohost service add "$app-livekit" --description="Livekit for $app" --log="/var
 
 # Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
+
+if [ "$turn_enabled" == "1" ]; then
+  setup_certs_rights_for_turn
+fi
 
 #=================================================
 # START SYSTEMD SERVICE

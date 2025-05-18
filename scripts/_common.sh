@@ -48,3 +48,13 @@ install_dex() {
   ynh_app_setting_set --key=oidc_secret --value=$oidc_secret
   ynh_app_setting_set --key=oidc_callback --value=$oidc_callback
 }
+
+setup_certs_rights_for_turn() {
+  setfacl -m u:$app:rX /etc/yunohost/{,certs/{,$turn_domain}}
+  setfacl -m u:$app:r /etc/yunohost/certs/$turn_domain/{crt.pem,key.pem}
+}
+
+remove_certs_rights_for_turn() {
+  setfacl -x u:$app /etc/yunohost/{,certs/{,$turn_domain}}
+  setfacl -x u:$app /etc/yunohost/certs/$turn_domain/{crt.pem,key.pem}
+}

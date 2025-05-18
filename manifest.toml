@@ -7,7 +7,7 @@ name = "Meet"
 description.en = "Simple and Secure Video Conferencing. Powered by LiveKit."
 description.fr = "Solution simple et sécurisée de visioconférence. Propulsée par Livekit."
 
-version = "0.1.21~ynh2"
+version = "0.1.21~ynh3"
 
 maintainers = ["fflorent", "rouja"]
 
@@ -56,6 +56,12 @@ ram.runtime = "200M"
     ask.fr = "Chemin de l'URL d'authentification. Veuillez ne pas utiliser 'auth' car cela casserait la configuration NGINX."
     type = "path"
     default = "/"
+
+    [install.turn_domain]
+    optional = "true"
+    ask.en = "Domain for the Turn server. Leave it empty if you don't want it enabled."
+    ask.fr = "Domaine pour le serveur Turn. Laissez le champ vide pour ne pas l'activer."
+    type = "domain"
 
 [resources]
     [resources.sources]

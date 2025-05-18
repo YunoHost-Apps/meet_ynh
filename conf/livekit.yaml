@@ -12,3 +12,11 @@ rtc:
   tcp_port: __PORT_TCP__
   turn_servers: null
   use_external_ip: true
+turn:
+  domain: __TURN_DOMAIN__
+  enabled: __TURN_ENABLED__
+  udp_port: 443
+  tls_port: 443
+  cert_file: /etc/yunohost/certs/__TURN_DOMAIN__/crt.pem
+  key_file: /etc/yunohost/certs/__TURN_DOMAIN__/key.pem
+
