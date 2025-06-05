@@ -32,9 +32,9 @@ ynh_script_progression "Configuring firewall..."
 ynh_hide_warnings yunohost firewall allow UDP -4 49152:65535
 
 #=================================================
-# INSTALL DEX APP FOR OAUTH2 / OIDC
+# CONFIGURE DEX APP FOR OAUTH2 / OIDC
 #=================================================
-ynh_script_progression "Installing Dex..."
+ynh_script_progression "Configuring Dex..."
 
 setup_dex
 
