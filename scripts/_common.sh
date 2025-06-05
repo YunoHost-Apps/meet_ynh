@@ -5,7 +5,7 @@
 #=================================================
 nodejs_version=22
 
-dex_ynh_commit=d04fc79d385313a11bc9982454b4a659148db77c
+dex_ynh_commit=20100712eb168290ca0f34784bf0c2a95fbfa4f2
 
 install_dex() {
   local dex_domain_path
