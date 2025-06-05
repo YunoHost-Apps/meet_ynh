@@ -36,7 +36,7 @@ ynh_hide_warnings yunohost firewall allow UDP -4 49152:65535
 #=================================================
 ynh_script_progression "Installing Dex..."
 
-install_dex
+setup_dex
 
 #=================================================
 # INSTALL NODEJS

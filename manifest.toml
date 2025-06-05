@@ -32,6 +32,14 @@ ram.build = "1G"
 ram.runtime = "200M"
 
 [install]
+    [install.dex]
+    type = "app"
+    filter = "match(id, '^(dex)(__[0-9+])?$')"
+    ask.en = "Select the Dex app that will handle authentication."
+    ask.fr = "Sélectionnez l'app Dex qui gérera l'authentification."
+    help.en = "You need to have at least one instance of Dex installed beforehand on your server."
+    help.fr = "Vous devez avoir au moins une instance de Dex préalablement installée sur votre serveur."
+
     [install.domain]
     type = "domain"
 
@@ -45,17 +53,6 @@ ram.runtime = "200M"
     type = "select"
     choices = ["fr-fr", "en-us"]
     default = "fr-fr"
-
-    [install.dex_domain]
-    ask.en = "Domain for authentication. It can't be the same domain as above. Dex app will be installed and used for the authentication mechanism."
-    ask.fr = "Domaine pour l'authentification. Il ne peut pas s'agir du même domaine que ci-dessus. L'application Dex sera installée et utilisée pour le mécanisme d'authentification."
-    type = "domain"
-
-    [install.dex_path]
-    ask.en = "Path for authentication URL. Please don't use 'auth' as it will break NGINX configuration."
-    ask.fr = "Chemin de l'URL d'authentification. Veuillez ne pas utiliser 'auth' car cela casserait la configuration NGINX."
-    type = "path"
-    default = "/"
 
 [resources]
     [resources.sources]
