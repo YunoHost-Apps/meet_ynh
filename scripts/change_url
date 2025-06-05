@@ -32,14 +32,7 @@ ynh_systemctl --service="$app" --action="stop"
 #=================================================
 ynh_script_progression "Changing Dex redirect url"
 
-if [ -z "$dex_app" ]; then
-  ynh_die "Dex app is missing, something is broken with the app authentication. You may reinstall Meet."
-fi
-
-dex_install_dir=$(yunohost app setting "$dex_app" install_dir)
-sed -i "/^\s*redirectURIs:\s*$/{n;s,https://.*,https://$domain/api/v1.0/callback/,;}" "$dex_install_dir/config.yaml"
-
-yunohost service restart "$dex_app"
+setup_dex
 
 #=================================================
 # MODIFY URL IN NGINX CONF
