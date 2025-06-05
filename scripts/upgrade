@@ -25,14 +25,7 @@ fi
 #=================================================
 # INSTALL DEX APP FOR OAUTH2 / OIDC
 #=================================================
-if ! yunohost app list | grep -q "id: $dex_app"; then
-  ynh_script_progression "Installing Dex..."
-  yunohost tools update
-  if yunohost app list | grep -q "$dex_domain$dex_path"; then
-    ynh_die "The domain provided for Dex is already used by another app. Please choose another one!"
-  fi
-  install_dex
-fi
+setup_dex
 
 #=================================================
 # INSTALL NODEJS

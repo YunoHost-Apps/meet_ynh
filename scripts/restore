@@ -17,18 +17,6 @@ if ! yunohost firewall list | grep -q "\- 49152:65535"; then
 fi
 
 #=================================================
-# RESTORE DEX
-#=================================================
-if ! yunohost app list | grep -q "id: $dex_app"; then
-  ynh_script_progression "Installing Dex..."
-  yunohost tools update
-  if yunohost app list | grep -q "$dex_domain$dex_path"; then
-    ynh_die "The domain provided for Dex is already used by another app. Please choose another one!"
-  fi
-  yunohost app install https://github.com/YunoHost-Apps/dex_ynh/tree/$dex_ynh_commit --force --args "domain=$dex_domain&path=$dex_path&oidc_name=$oidc_name&oidc_secret=$oidc_secret&oidc_callback=$oidc_callback"
-fi
-
-#=================================================
 # RESTORE THE APP MAIN DIR
 #=================================================
 ynh_script_progression "Restoring the app main directory..."
@@ -89,6 +77,12 @@ ynh_systemctl --action=restart --service=fail2ban
 #=================================================
 
 ynh_restore "/var/log/$app/"
+
+#=================================================
+# SETUP DEX FOR OIDC
+#=================================================
+
+setup_dex
 
 #=================================================
 # RELOAD NGINX AND PHP-FPM OR THE APP SERVICE
