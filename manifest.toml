@@ -7,7 +7,7 @@ name = "Meet"
 description.en = "Simple and Secure Video Conferencing. Powered by LiveKit."
 description.fr = "Solution simple et sécurisée de visioconférence. Propulsée par Livekit."
 
-version = "0.1.21~ynh2"
+version = "0.1.23~ynh1"
 
 maintainers = ["fflorent", "rouja"]
 
@@ -58,8 +58,8 @@ ram.runtime = "200M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/suitenumerique/meet/archive/refs/tags/v0.1.21.tar.gz"
-    sha256 = "5aa384d740023695bedb36b9602e8590f1ac4527c73826845b0e4a2ce1563d7b"
+    url = "https://github.com/suitenumerique/meet/archive/refs/tags/v0.1.23.tar.gz"
+    sha256 = "70086e5b2b44e6073d8243c62abe081c1557a53000657173e59ee7fa0f50c71c"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.livekit]
