@@ -5,11 +5,21 @@ test_format = 1.0
 [default]
 
 
+    preinstall = """
+    sudo yunohost tools update apps
+    sudo yunohost domain add dex.domain.tld
+    sudo yunohost app install dex -f -a "domain=dex.domain.tld&path=/&oidc_name=&oidc_secret=&oidc_callback"
+    """
+
+    preupgrade = """
+    sudo yunohost app remove dex__2 || true
+    sudo yunohost app upgrade dex -u dex -F
+    """
+
     # -------------------------------
     # Default args to use for install
     # -------------------------------
 
-    args.dex_domain = "domain.tld"
-    args.dex_path = "/dex"
+    args.dex = "dex"
 
     test_upgrade_from.cdfc908.name = "Upgrade from 0.1.19~ynh1"
