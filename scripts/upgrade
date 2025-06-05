@@ -23,8 +23,10 @@ if ! yunohost firewall list | grep -q "\- 49152:65535"; then
 fi
 
 #=================================================
-# INSTALL DEX APP FOR OAUTH2 / OIDC
+# CONFIGURE DEX APP FOR OAUTH2 / OIDC
 #=================================================
+ynh_script_progression "Configuring dex..."
+
 setup_dex
 
 #=================================================
