@@ -5,21 +5,18 @@
 #=================================================
 nodejs_version=22
 
-setup_dex() {
-  # List the Dex apps installed on the system
-  dex_apps="$(yunohost app list -f --output-as json | jq -r '[ .apps[] | select(.manifest.id == "dex") ]')"
-  dex="${dex:-dex}"
+dex_ynh_commit=20100712eb168290ca0f34784bf0c2a95fbfa4f2
 
-  # If there are no Dex app installed
-  if [ $(jq -r '[ .[] | select(.manifest.id == "dex").id ] | length' <<< $dex_apps) -eq 0 ]
-  then
-      ynh_die "The apps needs at least one Dex instance to be installed. Install or restore one first."
-  # Else if the configured Dex app is not in the list, default to the first one and display a warning
-  elif [ $(jq --arg dex $dex -r '[ .[] | select(.id == $dex) ] | length' <<< $dex_apps) -ne 1 ]
-  then
-    dex="$(jq -r 'sort_by(.id) | first.id' <<< $dex_apps)"
-    ynh_print_warn "The dex app was not set up, or the one initially set up for $app has not been found. Reconfiguring with $dex"
-    ynh_app_setting_set --key=dex --value=$dex
+install_dex() {
+  local dex_domain_path
+  local dex_domain_path_no_trailing_slash
+
+  oidc_secret=$(ynh_string_random -l 32)
+  oidc_name="$app"
+  oidc_callback="$domain/api/v1.0/callback/"
+
+  if yunohost app list | grep -q "$dex_domain$dex_path"; then
+    ynh_die "The domain provided for Dex is already used by another app. Please choose another one!"
   fi
 
   # Make sure that the Dex version is compatible
